@@ -16,11 +16,26 @@ class App extends Component {
     let contactForm = [...this.state.contactForm, contact];
     console.log(contactForm);
     this.setState({
-      contactForm:contactForm
+      contactForm: contactForm
     })
   }
-  handleDel(id){
-    console.log(id);
+  handleDel = (id) =>{
+    // console.log(id);
+    let contactForm = this.state.contactForm.filter(contact => {
+      return contact.id !== id;
+    });
+    this.setState({
+      contactForm:contactForm
+    })
+    console.log(contactForm);
+  }
+  componentDidMount(){
+    console.log("挂载完成");
+  }
+  componentDidUpdate(prevProps,prevState){
+    console.log("更新完成");
+    console.log(prevProps);
+    console.log(prevState);
   }
   render() {
     return (
@@ -28,8 +43,8 @@ class App extends Component {
         <header className="App-header">
           <h1>这是我第一个React应用程序</h1>
         </header>
-        <Contact contactForm={this.state.contactForm} />
-        <AddContact handleDel={this.handleDel} addContact={this.addContact} />
+        <Contact handleDel={this.handleDel} contactForm={this.state.contactForm} />
+        <AddContact addContact={this.addContact} />
       </div>
     );
 
